@@ -1,0 +1,7 @@
+downloaded/*
+venv
+*.mp4
+*.mp3
+*.db
+.DS_STORE
+.hintric

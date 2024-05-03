@@ -1,0 +1,52 @@
+{% extends 'template.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/css/index.css">
+    <title>Youtube Premium</title>
+{% endblock %}
+{% block content %}
+    <div class="center">
+        <div class="main-content">
+            <div class="heading">
+                <h1>Download Any YouTube Video</h1>
+                <h4>Paste a link below to download.</h4>
+            </div>
+            <div id="search" style="margin: 0;width: 70%;filter: drop-shadow(0 0 5px rgba(255,255,255, 20%));" class="download_form">
+                <form action="/" id="search-form" method="post">
+                    <div id="container" style="margin: 0;">
+                        <div class="search-input">
+                            <input id="search_input" value="" required="" autocapitalize="none" autocomplete="off" autocorrect="off" name="url" tabindex="0" type="text" spellcheck="false" placeholder="Paste Youtube URL here." aria-label="Search" role="combobox" aria-haspopup="false" aria-autocomplete="list" dir="ltr" class="ytd-searchbox" style="outline: none;">
+                        </div>
+                    </div>
+                </form>
+                <button id="search-icon-legacy" class="ytd-searchbox download_btn">
+                    <div style="width: 24px; height: 24px; fill: currentcolor;"><img src="/static/i/download.svg" alt=""></div>
+                </button>
+            </div>
+            <span id="downloading_text_animation"></span>
+            <script>
+                function playAnimation() {
+                    let frame=0
+                    setInterval(()=>{
+                        document.querySelector('#downloading_text_animation').innerHTML='Downloading'+".".repeat(frame%3)
+                    })
+                    
+                }
+                //document.querySelector('.download_btn').onclick=playAnimation
+                //document.querySelector('.download_form').onsubmit=playAnimation
+            </script>
+        </div>
+    </div>
+    <div id="videos">
+        <!-- This is just used to see the downloaded videos when at #videos -->
+    </div>
+    <h1 style="text-align: center;">All Videos</h1>
+    <div class="videos">
+        {% if videos %}
+            {% for video in videos %}
+                {{ display_video(video[0])|safe }}
+            {% endfor %}
+        {% else %}
+            <span>You have no videos. Paste in a link above to add to your list.</span>
+        {% endif%}
+    </div>
+{% endblock %}

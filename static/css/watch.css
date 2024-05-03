@@ -1,0 +1,41 @@
+* {
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #f1f1f1;
+}
+body {
+    width: 100vw;
+    display: flex;
+    object-fit: contain;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+}
+body,html {
+    /* background-color: #0f0f0f; */
+}
+a {
+    color: #3ea6ff;
+}
+.info {
+    margin: 12px 0 0 0;
+}
+.description {
+    position: relative;
+    border-radius: 12px;
+    background: rgb(255 255 255 / 10%);
+    min-width: 100%;
+    min-width: max(381px, 50% - 12px);
+    flex: 1;
+    flex-basis: 0.000000001px;
+    font-family: "Roboto", "Arial", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    padding: 12px;
+    margin: 12px 0 0 0;
+}
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+}

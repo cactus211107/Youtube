@@ -1,0 +1,46 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+  
+      .playpause {
+        cursor: pointer;
+      }
+  
+      .playpause .button {
+        width: 15px;
+        height: 18px;
+        background: #f0f0f0;
+        transition: clip-path 0.2s ease-in-out;
+        clip-path: polygon(0 0, 50% 25%, 50% 75%, 50% 75%, 50% 25%, 100% 50%, 100% 50%, 0 100%);
+      }
+  
+      .playpause.playing .button {
+        clip-path: polygon(0 0, 40% 0, 40% 100%, 60% 100%, 60% 0, 100% 0, 100% 100%, 0 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="playpause playing" onclick="togglePlay()">
+      <svg class="play-icon button" viewBox="0 0 24 24">
+        
+      </svg>
+    </div>
+  
+    <script>
+      function togglePlay() {
+        const playpause = document.querySelector('.playpause');
+        playpause.classList.toggle('playing');
+      }
+    </script>
+  
+  
+  </body></html>

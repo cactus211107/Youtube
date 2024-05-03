@@ -1,0 +1,84 @@
+{% extends 'template.html' %}
+{% block head %}
+<link rel="stylesheet" href="/static/css/index.css">
+<link rel="stylesheet" href="/static/css/index_spotify.css">
+<link rel="shortcut icon" href="/static/i/spotify-logo-small.png" type="image/x-icon">
+<title>Spotify Premium</title>
+<script>document.querySelector('link[rel="shortcut icon"]').remove()</script>
+{% endblock %}
+{% block content %}
+<div class="center">
+    <div class="main-content">
+        <div class="heading">
+            <h1>Download Any Spotify Song!</h1>
+            <h4>Search for the song and download!</h4>
+        </div>
+        <div id="search-container">
+            <div class="search_input">
+                <input type="text" id="song_search" placeholder="What do you want to play?">
+            </div>
+            <div class="search_extra">
+                <span class="search_icon">
+                    <svg data-encore-id="icon" role="img" aria-hidden="true" class="Svg-sc-ytk21e-0 dYnaPI mOLTJ2mxkzHJj6Y9_na_" viewBox="0 0 16 16">
+                        <path d="M7 1.75a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5zM.25 7a6.75 6.75 0 1 1 12.096 4.12l3.184 3.185a.75.75 0 1 1-1.06 1.06L11.304 12.2A6.75 6.75 0 0 1 .25 7z"></path>
+                    </svg>
+                </span>
+            </div>
+        </div>
+        <div id="results"></div>
+    </div>
+    <form action="/spotify" method="post" id="url_form">
+        <input type="text" name="url" id="url">
+    </form>
+</div>
+<script>
+    const search_input = document.querySelector('#song_search')
+    const result_elm = document.querySelector('#results')
+    search_input.oninput=()=>{
+        let query=search_input.value
+        fetch('/spotify_search?q='+query).then(response=>response.json()).then(result=>{
+            console.log(result)
+            result_elm.innerHTML=''
+            let n = 0;
+            function secondsToTimestamp(n) {
+                function toDateTime(secs) {
+                    var t = new Date(1970, 0, 1); // Epoch
+                    t.setSeconds(secs);
+                    return t;
+                }
+                let date=toDateTime(n)
+                return (date.getHours().toString().padStart(2,'0')+":"+date.getMinutes().toString().padStart(2,'0')+":"+date.getSeconds().toString().padStart(2,'0')).replace(/^00:/,'')
+            }
+            for (const track of result) {
+                console.log(n)
+                n++;
+                result_elm.innerHTML+=`
+                <div class='result'>
+                    <div class='result-section'>
+                        <div class='inner-song-count'>
+                            <span>${n}</span>
+                        </div>
+                    </div>
+                    <div class='result-section'>
+                        <img src="${track.cover.url}" style="background-color:${track.cover.bg}" width=40 height=40 class='preview-track-cover shine' onload='this.classList.remove("shine")'>
+                        <div class='preview-track-info'>
+                            <span class="preview-track-name standalone-ellipsis-one-line">${track.name}</span>
+                            <span class="preview-artist-name standalone-ellipsis-one-line color-a7a7a7">${track.artist}</span>
+                        </div>
+                    </div>
+                    <div class='result-section'>
+                        <span class="preview-track-album standalone-ellipsis-one-line color-a7a7a7">${track.album}</span>
+                    </div>
+                    <div class='result-section'>
+                        <span class="preview-track-duration">${secondsToTimestamp(track.duration/1000)}</span>
+                        <button class='track-download' onclick='document.querySelector("#url").value="${track.url}";document.querySelector("#url_form").submit()'></button>
+                    </div>
+                </div>
+                `
+            }
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
+</script>
+{% endblock %}

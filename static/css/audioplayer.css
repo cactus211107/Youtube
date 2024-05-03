@@ -1,0 +1,190 @@
+:root {
+    --button-size:32px;
+}
+button {
+    outline: none;
+}
+.player {
+    width: 500px;
+}
+.player-controls {
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+}
+.controls {
+    width: 100%;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+.controls-left,.controls-right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    gap: 8px;
+}
+.controls-left {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+.controls-right {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+}
+.controls .control-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: var(--button-size);
+    min-width: var(--button-size);
+    position: relative;
+    width: var(--button-size);
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+}
+.controls .control-btn {
+    background: transparent;
+    color: hsla(0, 0%, 100%, .7);
+    fill: currentColor;
+}
+button > svg {
+    width: 16px;
+    height: 16px;
+}
+.control-btn > svg {
+    fill: hsla(0, 0%, 100%, .7);
+}
+.controls .control-btn:hover > svg {
+    fill: #fff;
+}
+.shuffle-btn:checked {
+    color: #1db954;
+}
+.shuffle-btn:checked::after {
+    background-color: currentcolor;
+    border-radius: 50%;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 4px;
+    left: 50%;
+    position: absolute;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 4px;
+}
+.play-pause-btn {
+    background-color: #fff;
+    border: none;
+    border-radius: var(--button-size);
+    color: #000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: var(--button-size);
+    min-width: var(--button-size);
+    position: relative;
+    -webkit-transition: none 33ms cubic-bezier(.3,0,.7,1);
+    transition: none 33ms cubic-bezier(.3,0,.7,1);
+    -webkit-transition-property: all;
+    transition-property: all;
+    width: var(--button-size);
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    cursor: pointer;
+    justify-content: center;
+}
+.play-pause-btn:hover {
+    -webkit-transform: scale(1.06);
+    transform: scale(1.06);
+    -webkit-transition: none 33ms cubic-bezier(.3,0,0,1);
+    transition: none 33ms cubic-bezier(.3,0,0,1);
+    -webkit-transition-property: all;
+    transition-property: all;
+}
+.play-pause-btn:active {
+    -webkit-transform: scale(.99);
+    transform: scale(.99);
+    -webkit-transition: none;
+    transition: none;
+}
+.timeline {
+    height: 12px;
+    width: 100%;
+}
+#timeline {
+    --slider-color: #fff;
+    --slider-bg:hsla(0,0%,100%,.3);
+    --slider-thumb-width:12px;
+    height: 4px;
+    width: 100%;
+    --percent:0%;
+    background: linear-gradient(to right, var(--slider-color) var(--percent), var(--slider-bg) var(--percent));
+    border: none;
+    appearance: none;
+    border-radius:2px
+  }
+  #timeline::-webkit-slider-thumb {
+    appearance: none;
+    width: var(--slider-thumb-width);
+    height: var(--slider-thumb-width);
+    border-radius: 10px;
+    background-color: transparent;
+    overflow: visible;
+    cursor: pointer;
+  }
+  /* var(--slider-thumb-width) */
+
+  .timeline:hover #timeline::-webkit-slider-thumb {
+    width: var(--slider-thumb-width);
+    width: var(--slider-thumb-width);
+    background-color: #fff;
+    cursor: pointer;
+  }
+  .timeline:hover #timeline {
+    --slider-color:#1db954;
+  }
+  .center {
+    display: flex;
+    width: 100%;
+    height: 90%;
+    align-items: center;
+    justify-content: center;
+  }
+  .cover > img {
+    width: 100%;
+    border-radius: 8px;
+}
+.song>span {
+    position: relative;
+    bottom: 21px;
+}

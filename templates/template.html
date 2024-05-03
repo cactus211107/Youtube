@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/settings.js"></script>
+    <link rel="shortcut icon" href="/static/i/favicon_144x144.png" type="image/x-icon">
+    <script defer>
+        document.addEventListener('DOMContentLoaded',()=>{
+            for (let submit_button of document.querySelectorAll('#search-icon-legacy')) {
+                submit_button.onclick = ()=>{
+                    let form = submit_button.parentNode.querySelector('form')
+                    if (form.querySelector('div > div > input').value) form.submit()
+                }
+            }
+            
+        })
+    </script>
+    <!-- <title>Youtube Premium</title> -->
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <div id="sidebar">
+        <a href="/" class="sidebar-item">
+            <div><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;"><path d="m12 4.44 7 6.09V20h-4v-6H9v6H5v-9.47l7-6.09m0-1.32-8 6.96V21h6v-6h4v6h6V10.08l-8-6.96z"></path></svg></div>
+            Home
+        </a>
+        <a href="/#videos" class="sidebar-item">
+            <div><img src="/static/i/download.svg" alt=""></div>
+            Downloads
+        </a>
+        <a href="/spotify" class="sidebar-item">
+            <div><img src="/static/i/spotify-logo-small.png" alt="spotify"></div>
+            Spotify
+        </a>
+    </div>
+    <nav>
+        <div id="start">
+            <button id="toggle-side-bar">
+                <div style="display: block; fill: currentcolor"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: inherit; width: 24px; height: 24px;"><path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z"></path></svg></div>
+            </button>
+            <a href="/" class="ytp-logo-a">
+                <img class="ytp-logo" src="/static/i/logo-premium.svg" alt="Youtube*">
+            </a>
+        </div>
+        <div id="center">
+            <div id="search">
+                <form action="/results" id="search-form">
+                    <div id="container">
+                        <div class="search-input">
+                            <input id="search_input"
+                            value="{{ query }}"
+                            required
+                                    autocapitalize="none"
+                                    autocomplete="off" 
+                                    autocorrect="off" 
+                                    name="search_query" 
+                                    tabindex="0" 
+                                    type="text" 
+                                    spellcheck="false" 
+                                    placeholder="Search" 
+                                    aria-label="Search" 
+                                    role="combobox" 
+                                    aria-haspopup="false" 
+                                    aria-autocomplete="list" 
+                                    dir="ltr"
+                                    class="ytd-searchbox"
+                                    style="outline: none;"
+                                >
+                        </div>
+                    </div>
+                </form>
+                <button id="search-icon-legacy" class="ytd-searchbox">
+                    <div style="width: 24px; height: 24px; fill: currentcolor;"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;" fill="white"><path d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"></path></svg></div>
+                </button>
+            </div>
+        </div>
+        <div id="end">
+            <a href="/" class="home-btn">
+                <div style="width: 100%; height: 100%; fill: currentcolor;"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;"><path d="m12 4.44 7 6.09V20h-4v-6H9v6H5v-9.47l7-6.09m0-1.32-8 6.96V21h6v-6h4v6h6V10.08l-8-6.96z"></path></svg></div>
+            </a>
+            <div class="avatar">
+                <div class="pfp">
+                    <img src="/static/i/youtube_pfp.jpg" alt="YT" draggable="false" width="32" height="32">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script>
+        const toggle_sidebar_btn = document.querySelector('#toggle-side-bar')
+        const sidebar = document.querySelector('#sidebar')
+        toggle_sidebar_btn.addEventListener('click',()=>{
+            sidebar.classList.toggle('open')
+        })
+        window.addEventListener('click',(e)=>{
+            if (e.target == sidebar || e.target == toggle_sidebar_btn || e.target.parentNode == toggle_sidebar_btn) return
+            if (sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open')
+            }
+        })
+    </script>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

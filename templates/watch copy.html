@@ -1,0 +1,83 @@
+{% extends 'template.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/css/watch.css">
+    <script>
+        function parseTimestamp(timestamp) {
+            timestamp = timestamp.padStart(8,'00:')
+            console.log(timestamp)
+            timestamp = timestamp.split(':')
+            return parseInt(timestamp[0])*3600+parseInt(timestamp[1])*60+parseInt(timestamp[2])
+            //document.createElement('video').currentTime = ...
+        }
+        function goToTimestamp(timestamp) {
+            document.querySelector('#player').currentTime = parseTimestamp(timestamp)
+        }
+        function parseTextForLinks(text) {
+            // Regular expression to match URLs
+            const urlRegex = /(?:https?|ftp):\/\/[^\s]+/g;
+        
+            // Replace URLs with clickable links
+            const newText = text.replace(urlRegex, function (url) {
+                return `<a href="${url}" target="_blank">${url}</a>`;
+            });
+        
+            return newText;
+        }
+        function parseTextForTimestamps(text) {
+            const regex = /\b\d{1,2}(:\d{1,2}(:\d{1,2})?)?\b/g;
+            const newText = text.replace(regex, function (timestamp) {
+                return `<a href="#player" onclick="goToTimestamp('${timestamp}')">${timestamp}</a>`;
+            });
+            return newText
+        }
+        function _parseDescription(desc) {
+            return parseTextForTimestamps(parseTextForLinks(desc)).replaceAll('\n','<br>')
+        }
+        function parseDescription() {
+            document.querySelector('.description').innerHTML=_parseDescription(`{{ description }}`)
+        }
+        console.log(document.querySelector('.description'))
+        if (document.readyState == "complete") {
+            parseDescription()
+        } else {
+            window.addEventListener('DOMContentLoaded',parseDescription)
+        }
+        document.onload=()=>{
+            console.log(document.querySelector('.description'))
+            
+        }
+    </script>
+    <title>Watch</title>
+{% endblock %}
+{% block content %}
+<body>
+    <video poster="/downloaded/videos/{{ id }}/thumbnail.jpg" controls id="player">
+        <source src="/downloaded/videos/{{ id }}/video.mp4" type="video/mp4">
+        <track
+        label="English"
+        kind="subtitles"
+        srclang="en"
+        src=""
+        default />
+    </video>
+    <div class="info">
+        <div class="captions">
+            <div class="caption"></div>
+        </div>
+        <h1>{{ title }}</h1>
+        <div class="description"></div>
+    </div>
+</body>
+<script src="/static/js/caption_player.js"></script>
+<script>
+        let captions = []
+        fetch('/captions?id={{ id }}').then(response=>response.json()).then(result=>{
+            console.log(result)
+            captions=result;
+            console.log(captions)
+            const caption_elm = document.querySelector('.captions > .caption')
+            const video=document.querySelector('video')
+            play_in_video(video,caption_elm,captions)
+        })
+</script>
+{% endblock %}
