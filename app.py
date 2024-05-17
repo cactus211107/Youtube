@@ -305,8 +305,7 @@ def display_video(id):
 def more_code():return{'display_video':display_video}
 
 
-def run(online=True):
-    app.run(host = '0.0.0.0' if online else None, port = 6969)
+def run(online=True):app.run(host = '0.0.0.0' if online else None, port = 6969)
 
 
 run()

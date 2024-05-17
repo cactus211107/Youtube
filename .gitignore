@@ -4,4 +4,7 @@ venv
 *.mp3
 *.db
 .DS_STORE
-.hintric
+.hintrc
+__pycache__
+.py
+test2.py
